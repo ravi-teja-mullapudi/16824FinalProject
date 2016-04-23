@@ -60,8 +60,7 @@ layer {
   convolution_param {
     num_output: 16
     kernel_size: 3
-    stride: 1
-    pad: 1
+    stride: 2
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -124,8 +123,7 @@ layer {
   convolution_param {
     num_output: 32
     kernel_size: 3
-    stride: 1
-    pad: 1
+    stride: 2
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -173,138 +171,9 @@ layer {
 }
 
 layer {
-  name: "conv3"
-  type: "Convolution"
-  bottom: "pool2"
-  top: "conv3"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 64
-    stride: 1
-    kernel_size: 3
-    pad: 1
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
-
-layer {
- name: "bn3"
- type: "BatchNorm"
- bottom: "conv3"
- top: "bn3"
- param {
-    lr_mult: 0
- }
- param {
-    lr_mult: 0
- }
- param {
-    lr_mult: 0
- }
-
-}
-
-layer {
-  name: "relu3"
-  type: "ReLU"
-  bottom: "bn3"
-  top: "relu3"
-}
-
-layer {
-  name: "pool3"
-  type: "Pooling"
-  bottom: "relu3"
-  top: "pool3"
-  pooling_param {
-    pool: MAX
-    kernel_size: 3
-    stride: 2
-  }
-}
-
-layer {
-  name: "conv4"
-  type: "Convolution"
-  bottom: "pool3"
-  top: "conv4"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 128
-    kernel_size: 3
-    stride: 1
-    pad: 1
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 1
-    }
-  }
-}
-
-layer {
- name: "bn4"
- type: "BatchNorm"
- bottom: "conv4"
- top: "bn4"
- param {
-    lr_mult: 0
- }
- param {
-    lr_mult: 0
- }
- param {
-    lr_mult: 0
- }
-}
-
-layer {
-  name: "relu4"
-  type: "ReLU"
-  bottom: "bn4"
-  top: "relu4"
-}
-
-layer {
-  name: "pool5"
-  type: "Pooling"
-  bottom: "relu4"
-  top: "pool5"
-  pooling_param {
-    pool: MAX
-    kernel_size: 3
-    stride: 2
-  }
-}
-
-layer {
   name: "fc6"
   type: "InnerProduct"
-  bottom: "pool5"
+  bottom: "pool2"
   top: "fc6"
   param {
     lr_mult: 1

@@ -13,15 +13,13 @@ caffe.set_device(0)
 
 # caffe.set_mode_cpu()
 
-solver = caffe.SGDSolver('/home/rmullapu/16824FinalProject/models/compute_increase/1_unit_solver.prototxt')
+solver = caffe.SGDSolver('/home/rmullapu/16824FinalProject/models/bvlc_reference_caffenet/solver.prototxt')
+solver.net.copy_from('/home/rmullapu/16824FinalProject/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel')
 
-for layer_name, blob in solver.net.blobs.iteritems():
-    print layer_name + '\t' + str(blob.data.shape)
-
-niter = 40000
+niter = 50000
 train_loss = np.zeros(niter)
 
-f = open('1_unit_log.txt', 'w')
+f = open('alex_net_log.txt', 'w')
 
 for it in range(niter):
     solver.step(1)
@@ -29,6 +27,7 @@ for it in range(niter):
     f.write('{0: f}\n'.format(train_loss[it]))
 
 f.close()
+
 # solver.step(80000)
 
 

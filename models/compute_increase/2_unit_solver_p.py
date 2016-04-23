@@ -13,15 +13,15 @@ caffe.set_device(0)
 
 # caffe.set_mode_cpu()
 
-solver = caffe.SGDSolver('/home/rmullapu/16824FinalProject/models/compute_increase/1_unit_solver.prototxt')
+solver = caffe.SGDSolver('/home/rmullapu/16824FinalProject/models/compute_increase/2_unit_solver.prototxt')
 
 for layer_name, blob in solver.net.blobs.iteritems():
     print layer_name + '\t' + str(blob.data.shape)
 
-niter = 40000
+niter = 30000
 train_loss = np.zeros(niter)
 
-f = open('1_unit_log.txt', 'w')
+f = open('2_unit_log.txt', 'w')
 
 for it in range(niter):
     solver.step(1)
